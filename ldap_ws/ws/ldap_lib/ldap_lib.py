@@ -109,9 +109,6 @@ class LDAPBackend():
             l and l.unbind_s()
         return None
 
-    #
-    # AuthProvider
-    #
     def authenticate(self, username, password):
 
         l = None
@@ -133,7 +130,9 @@ class LDAPBackend():
                 # check if the given username in combination with the LDAP
                 # auth method is already in the UserAuthentication table
                 user = ldap_result[0][1]
-                return {'display': user['givenName'][0],
+                print ldap_result
+                return {'firstname': user['givenName'][0],
+                        'surname': user['sn'][0],
                         "id": user['uid'][0],
                         "email": user['mail'][0]}
             return None

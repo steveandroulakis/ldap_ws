@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'mysql'.
-        'NAME': 'ldap_ws',                      # Or path to database file if using sqlite3.
+        'NAME': 'ldap_ws.db',            # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -164,7 +164,7 @@ LDAP_USE_TLS = False
 LDAP_URL = "ldap://directory.monash.edu.au"
 
 LDAP_USER_LOGIN_ATTR = "uid"
-LDAP_USER_ATTR_MAP = {"givenName": "display", "mail": "email"}
+LDAP_USER_ATTR_MAP = {"givenName": "display", "mail": "email", "sn": "surname"}
 LDAP_GROUP_ID_ATTR = "ou"
 LDAP_GROUP_ATTR_MAP = {"description": "display"}
 
