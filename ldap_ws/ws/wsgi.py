@@ -13,7 +13,26 @@ middleware here, or combine a Django application with an application of another
 framework.
 
 """
-import os
+import sys, os
+__this__ = os.getcwd()
+
+def setup_python_path():    
+    base = __this__
+    sources = os.path.join(base, 'parts')
+    eggs = os.path.join(base, 'eggs')
+
+    paths = []
+    paths.append(os.path.dirname(__this__))
+
+    for src in os.listdir(sources):
+        paths.append(os.path.join(__this__, 'parts', src))
+
+    for egg in os.listdir(eggs):
+        paths.append(os.path.join(__this__, 'eggs', egg))
+
+    sys.path[0:0] = paths
+
+setup_python_path()
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ldap_ws.settings")
 
