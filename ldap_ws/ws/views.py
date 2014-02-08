@@ -27,7 +27,8 @@ def info_by_username(request, username):
         raise Http404
 
 
-def info_by_email(request, email):
+def info_by_email(request):
+    email = request.GET.get('email', '')
     email = urllib.unquote_plus(email)
 
     ld = ldap_lib.ldap_auth()
