@@ -28,11 +28,15 @@ def info_by_username(request, username):
 
 
 def info_by_email(request):
+    # /email/?email=steve.androulakis%40monash.edu
+
     email = request.GET.get('email', '')
     email = urllib.unquote_plus(email)
 
     ld = ldap_lib.ldap_auth()
     user = ld.getUsernameByEmail(email)
+    user = ld.getUserById(user)
+
     if user:
         return JSONResponse(user)
     else:
