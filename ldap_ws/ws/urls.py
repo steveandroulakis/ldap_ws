@@ -5,13 +5,12 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
+    url(r'^email/(?P<email>\w+)/$',
+        'ldap_ws.ws.views.info_by_email',
+        name='info_by_email'),
     url(r'^(?P<username>\w+)/$',
         'ldap_ws.ws.views.info_by_username',
         name='info_by_username'),
-    url(r'^email/(?P<email>\w+)/$',
-        'ldap_ws.ws.views.info_by_username',
-        name='info_by_email'),
     url(r'^$',
         'ldap_ws.ws.views.authenticate',
         name='authenticate'),

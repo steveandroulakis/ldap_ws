@@ -1,4 +1,5 @@
 import json
+import urllib
 
 from django.http import HttpResponse
 from django.http import Http404
@@ -27,6 +28,8 @@ def info_by_username(request, username):
 
 
 def info_by_email(request, email):
+    email = urllib.unquote_plus(email)
+
     ld = ldap_lib.ldap_auth()
     user = ld.getUsernameByEmail(email)
     if user:
