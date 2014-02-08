@@ -206,10 +206,10 @@ class LDAPBackend():
             if l:
                 l.unbind_s()
 
-    def getUsernameByFirstnameSurname(self,
-            firstname, surname):
+    def getUsernameByFirstnameLastname(self,
+            firstname, lastname):
 
-        cn = '%s %s' % (firstname, surname)
+        cn = '%s %s' % (firstname, lastname)
 
         l = None
         try:

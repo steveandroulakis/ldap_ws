@@ -43,6 +43,23 @@ def info_by_email(request):
         raise Http404
 
 
+def info_by_cn(request):
+    # /cn/?firstname=Steve&lastname=Androulakis
+
+    firstname = request.GET.get('firstname', '')
+    lastname = request.GET.get('lastname', '')
+
+    ld = ldap_lib.ldap_auth()
+    user = ld.getUsernameByFirstnameLastname(
+        firstname, lastname)
+    user = ld.getUserById(user)
+
+    if user:
+        return JSONResponse(user)
+    else:
+        raise Http404
+
+
 @csrf_exempt
 def authenticate(request):
     if not request.method == 'POST':
