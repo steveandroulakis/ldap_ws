@@ -206,6 +206,36 @@ class LDAPBackend():
             if l:
                 l.unbind_s()
 
+    def getUsernameByFirstnameSurname(self,
+            firstname, surname):
+
+        cn = '%s %s' % (firstname, surname)
+
+        l = None
+        try:
+            retrieveAttributes = ["uid"]
+            l = ldap.initialize(self._url)
+            l.protocol_version = ldap.VERSION3
+            searchFilter = '(cn=%s)' % (cn)
+            ldap_result = l.search_s(self._user_base, ldap.SCOPE_SUBTREE,
+                                     searchFilter, retrieveAttributes)
+
+            logging.debug(ldap_result)
+            if ldap_result[0][1]['uid'][0]:
+                return ldap_result[0][1]['uid'][0]
+            else:
+                return None
+
+        except ldap.LDAPError:
+            logging.exception("ldap error")
+            return None
+        except IndexError:
+            logging.exception("index error")
+            return None
+        finally:
+            if l:
+                l.unbind_s()
+
 
 def ldap_auth():
     """Return an initialised LDAP backend.
